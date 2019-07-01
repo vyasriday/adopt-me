@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import pet, { ANIMALS } from '@frontendmasters/pet';
 import useDropdown from './useDropdown';
+import Results from './Results';
 
 const SearchParmas = () => {
   /*
@@ -13,6 +14,17 @@ const SearchParmas = () => {
   const [breeds, setBreeds] = useState([]);
   const [animal, AnimalDropdown] = useDropdown('Animal', 'dog', ANIMALS);
   const [breed, BreedDropdown, setBreed] = useDropdown('Breed', '', breeds);
+  const [pets, setPets] = useState([]);
+
+  async function requestPets() {
+    const { animals } = await pet.animals({
+      location,
+      breed,
+      type: animal,
+    });
+
+    setPets(animals || []);
+  }
 
   /*
    * useEffect is a hook that is used in place of component lifecycle methods. It takes a callback and
@@ -21,6 +33,8 @@ const SearchParmas = () => {
    * depends on change. This is called effective dependencies. Here it depends on animal technically because whenever
    * animal changes we want it to update the breeds dropdown. We also need to pass to it the setBreeds and setBreed.
    * The dependecies are passed in an array as the second argument.
+   * If the dependency array is empty then the useEffect will run only once as there is nothing it depends on.
+   * If no dependency arrays is passed the useEffect will run infinitely.
    */
   useEffect(() => {
     setBreeds([]);
@@ -41,7 +55,12 @@ const SearchParmas = () => {
 
   return (
     <div className="search-params">
-      <form>
+      <form
+        onSubmit={event => {
+          event.preventDefault();
+          requestPets();
+        }}
+      >
         <label htmlFor="location">
           Location
           <input
@@ -56,6 +75,7 @@ const SearchParmas = () => {
         <BreedDropdown />
         <button type="submit">Submit</button>
       </form>
+      <Results pets={pets} />
     </div>
   );
 };
