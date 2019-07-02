@@ -1,5 +1,6 @@
 import React from 'react';
 import Pet from './Pet';
+import { Link } from '@reach/router';
 
 const Results = ({ pets }) => {
   if (pets.length === 0) {
