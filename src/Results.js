@@ -1,6 +1,5 @@
 import React from 'react';
 import Pet from './Pet';
-import { Link } from '@reach/router';
 
 const Results = ({ pets }) => {
   if (pets.length === 0) {
@@ -14,6 +13,7 @@ const Results = ({ pets }) => {
     <div className="search">
       {pets.map(pet => (
         <Pet
+          id={pet.id}
           animal={pet.type}
           key={pet.id}
           name={pet.name}
