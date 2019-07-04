@@ -6,7 +6,14 @@ class Carousel extends Component {
     active: 0,
   };
 
-  // a special method which must be static and gives us a new state from the props
+
+  handleIndexClick = (event) => {
+    this.setState({
+      active: +event.target.dataset.index
+    })
+  }
+
+   // a special method which must be static and gives us a new state from the props
   static getDerivedStateFromProps({ media }) {
     let photos = ['http://placecorgi.com/600/600'];
     if (media.length) {

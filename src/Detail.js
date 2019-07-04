@@ -1,5 +1,6 @@
 import React from 'react';
 import pet from '@frontendmasters/pet';
+import ErrorBoundary from './ErrorBoundary';
 // you can not use hooks with class components
 class Details extends React.Component {
   state = {
@@ -36,4 +37,11 @@ class Details extends React.Component {
   }
 }
 
-export default Details;
+// DetailsWithErrorBoundary here is an HOC that takes in a component and renders it woth some additional properties
+export default function DetailsWithErrorBoundary(props) {
+  return (
+    <ErrorBoundary>
+      <Details {...props} />
+    </ErrorBoundary>
+  );
+}
