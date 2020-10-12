@@ -1,4 +1,5 @@
-const createElement = React.createElement;
+import React, { createElement } from "react";
+import ReactDOM from "react-dom";
 
 const Pet = (props) => {
   const { name, animal, breed } = props;
