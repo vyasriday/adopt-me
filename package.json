@@ -1,0 +1,19 @@
+{
+  "name": "adopt-me",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier \"src/**/*.{js,html,css}\" --write",
+    "lint": "eslint \"src/**/*.{js, jsx}\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^7.11.0",
+    "eslint-config-prettier": "^6.12.0",
+    "prettier": "^2.1.2"
+  }
+}
