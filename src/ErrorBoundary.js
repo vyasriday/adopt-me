@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from '@reach/router';
+import { Link, Redirect } from '@reach/router';
 
 class ErrorBoundary extends React.Component {
 	state = {
@@ -9,6 +9,7 @@ class ErrorBoundary extends React.Component {
 	static getDerivedStateFromError() {
 		return {
 			hasError: true,
+			redirect: false,
 		};
 	}
 
@@ -16,8 +17,19 @@ class ErrorBoundary extends React.Component {
 		// use some error logging service to send error data
 		console.error('ErrorBoundary caught an error', error, info);
 	}
+
+	// eslint-disable-next-line react/no-deprecated
+	componentDidUpdate() {
+		if (this.state.hasError) {
+			setTimeout(() => this.setState({ redirect: true }), 5000);
+		}
+	}
 	render() {
-		const { hasError } = this.state;
+		const { hasError, redirect } = this.state;
+
+		if (redirect) {
+			return <Redirect to='/' />;
+		}
 		if (hasError) {
 			// good to have fallback UI here.
 			return (
