@@ -1,3 +1,4 @@
+import { Link } from '@reach/router';
 import React from 'react';
 
 export default function Pet({ name, animal, media, location, id, breed }) {
@@ -8,7 +9,7 @@ export default function Pet({ name, animal, media, location, id, breed }) {
 	}
 
 	return (
-		<a href={`/details/${id}`} className='pet'>
+		<Link to={`/details/${id}`} className='pet'>
 			<div className='image-container'>
 				<img src={hero} alt={name} />
 			</div>
@@ -16,6 +17,6 @@ export default function Pet({ name, animal, media, location, id, breed }) {
 				<h1>{name}</h1>
 				<h2>{`${animal} - ${breed} - ${location}`}</h2>
 			</div>
-		</a>
+		</Link>
 	);
 }

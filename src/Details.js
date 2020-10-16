@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import pet from '@frontendmasters/pet';
 import Carousel from './Carousel';
 import ErrorBoundary from './ErrorBoundary';
+import ThemeContext from './ThemeContext';
 // reach router will automatically pass the id param to this component as props
 class Details extends Component {
 	state = {
@@ -32,7 +33,14 @@ class Details extends Component {
 				<Carousel media={media} />
 				<h1>{name}</h1>
 				<h2>{`${animal} - ${breed} - ${location} `}</h2>
-				<button>Adopt {name}</button>
+				<ThemeContext.Consumer>
+					{/* themeHook is the value passed down from Provider in App component */}
+					{(themeHook) => (
+						<button style={{ backgroundColor: themeHook[0] }}>
+							Adopt {name}
+						</button>
+					)}
+				</ThemeContext.Consumer>
 				<p>{description}</p>
 			</div>
 		);
