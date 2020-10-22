@@ -1,10 +1,11 @@
 import React, { StrictMode, useState } from 'react';
 import ReactDOM from 'react-dom';
 import SearchParams from './SearchParams';
-import { Link, Router } from '@reach/router';
+import { Router } from '@reach/router';
 import Details from './Details';
 import ErrorBoundary from './ErrorBoundary';
 import ThemeContext from './ThemeContext';
+import NavBar from './Navbar';
 const App = () => {
 	// get the whole array, will be used to pass down to consumers
 	const themeHook = useState('darkblue');
@@ -13,9 +14,7 @@ const App = () => {
 			<ThemeContext.Provider value={themeHook}>
 				<ErrorBoundary>
 					<div>
-						<header>
-							<Link to='/'>Adopt Me!</Link>
-						</header>
+						<NavBar />
 						<Router>
 							<SearchParams path='/' />
 							<Details path='/details/:id' />
