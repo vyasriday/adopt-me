@@ -1,11 +1,12 @@
-import React, { StrictMode, useState } from 'react';
+import React, { StrictMode, useState, lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import SearchParams from './SearchParams';
 import { Router } from '@reach/router';
-import Details from './Details';
 import ErrorBoundary from './ErrorBoundary';
 import ThemeContext from './ThemeContext';
-import NavBar from './Navbar';
+const Details = lazy(() => import('./Details'));
+
+// import NavBar from './Navbar';
 const App = () => {
 	// get the whole array, will be used to pass down to consumers
 	const themeHook = useState('darkblue');
@@ -14,11 +15,12 @@ const App = () => {
 			<ThemeContext.Provider value={themeHook}>
 				<ErrorBoundary>
 					<div>
-						<NavBar />
-						<Router>
-							<SearchParams path='/' />
-							<Details path='/details/:id' />
-						</Router>
+						<Suspense fallback={<h1>Loading Routes ... </h1>}>
+							<Router>
+								<SearchParams path='/' />
+								<Details path='/details/:id' />
+							</Router>
+						</Suspense>
 					</div>
 				</ErrorBoundary>
 			</ThemeContext.Provider>
