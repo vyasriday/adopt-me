@@ -1,16 +1,17 @@
-import React, { useState, useEffect, useContext } from 'react';
-import pet, { ANIMALS } from '@frontendmasters/pet';
+import React, { useState, useEffect, useContext, FunctionComponent } from 'react';
+import pet, { ANIMALS, Animal } from '@frontendmasters/pet';
 import useDropdown from './useDropdown';
 import Results from './Results';
 import ThemeContext from './ThemeContext';
+import { RouteComponentProps } from '@reach/router';
 
-const SearchParams = () => {
+const SearchParams: FunctionComponent<RouteComponentProps> = () => {
 	const [location, setLocation] = useState('Seattle, WA');
 	const [breeds, setBreeds] = useState([]);
 	// these are custom hooks and therefore they will be fired on rerender and are not governed by useState dependency rules
 	const [animal, AnimalDropdown] = useDropdown('Animal', 'dog', ANIMALS);
 	const [breed, BreedDropdown, setBreed] = useDropdown('Breed', '', breeds);
-	const [pets, setPets] = useState([]);
+	const [pets, setPets] = useState([] as Animal[]);
 	// create a context, where theme is the value that ThemeConext provides and it's updater
 	const [theme, setTheme] = useContext(ThemeContext);
 

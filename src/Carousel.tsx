@@ -1,24 +1,37 @@
 import React from 'react';
+import { Photo } from '@frontendmasters/pet';
 
-class Carousel extends React.Component {
-	state = {
+interface IProps {
+	media: Photo[],
+
+}
+
+interface IState {
+	active: number,
+	photos: string[]
+}
+
+class Carousel extends React.Component<IProps, IState> {
+	public state = {
 		photos: [],
 		active: 0,
 	};
 
-	static getDerivedStateFromProps(props) {
-		const photos = props.media.map((photo) => photo.large);
+	public static getDerivedStateFromProps(props: IProps) {
+		const photos = props.media.map((photo: Photo) => photo.large);
 		return {
 			photos,
 		};
 	}
-
-	handleIndexClick = (event) => {
+	// event is of type React.MouseEvent that takes in an HTMLElement and that's how we write it.
+	handleIndexClick = (event: React.MouseEvent<HTMLElement>) => {
+		if(!(event.target instanceof HTMLElement)) return
 		// all data-attributes of an element are available on it as element.dataset.attribute.
-		const index = +event.target.dataset.index;
-		this.setState({
-			active: index,
-		});
+		if (event.target.dataset.index) {
+			this.setState({
+				active: +event.target.dataset.index,
+			});
+		}
 	};
 
 	render() {

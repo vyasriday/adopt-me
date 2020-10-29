@@ -1,25 +1,26 @@
-import React from 'react';
-import { Link, Redirect } from '@reach/router';
+import React, { ErrorInfo } from 'react';
+import { Link, Redirect, RouteComponentProps } from '@reach/router';
 
-class ErrorBoundary extends React.Component {
-	state = {
+class ErrorBoundary extends React.Component<RouteComponentProps> {
+	public state = {
 		hasError: false,
+		redirect: false
 	};
 	// this gets called when error happens, just like getDerivedStateFromProps this is static and returns state info
-	static getDerivedStateFromError() {
+	public static getDerivedStateFromError() {
 		return {
 			hasError: true,
 			redirect: false,
 		};
 	}
 
-	componentDidCatch(error, info) {
+	public componentDidCatch(error: Error, info: ErrorInfo) {
 		// use some error logging service to send error data
 		console.error('ErrorBoundary caught an error', error, info);
 	}
 
 	// eslint-disable-next-line react/no-deprecated
-	componentDidUpdate() {
+	public componentDidUpdate() {
 		if (this.state.hasError) {
 			setTimeout(() => this.setState({ redirect: true }), 5000);
 		}

@@ -1,18 +1,31 @@
 import React, { Component } from 'react';
-import { navigate } from '@reach/router';
-import pet from '@frontendmasters/pet';
+import { navigate, RouteComponentProps } from '@reach/router';
+import pet, { Photo} from '@frontendmasters/pet';
 import Carousel from './Carousel';
 import ErrorBoundary from './ErrorBoundary';
 import ThemeContext from './ThemeContext';
 import Modal from './Modal';
 // reach router will automatically pass the id param to this component as props
-class Details extends Component {
-	state = {
+class Details extends Component<RouteComponentProps< {
+	id: string
+}>> {
+	public state = {
 		loading: true,
 		showModal: false,
+		name: "",
+		animal: "",
+		location: "",
+		description: "",
+		media: [] as Photo[],
+		url: "",
+		breed: ""
 	};
-	componentDidMount() {
-		pet.animal(this.props.id).then(({ animal }) => {
+	public componentDidMount() {
+		if (!this.props.id) {
+			navigate("/");
+			return;
+		}
+		pet.animal(+this.props.id).then(({ animal }) => {
 			this.setState({
 				url: animal.url,
 				name: animal.name,
@@ -47,8 +60,8 @@ class Details extends Component {
 				<Carousel media={media} />
 				<h1>{name}</h1>
 				<h2>{`${animal} - ${breed} - ${location} `}</h2>
-				<ThemeContext.Consumer>
 					{/* themeHook is the value passed down from Provider in App component */}
+				<ThemeContext.Consumer>
 					{(themeHook) => (
 						<button
 							style={{ backgroundColor: themeHook[0] }}
@@ -74,7 +87,9 @@ class Details extends Component {
 }
 
 // returning a HOC instead of wrapping the Details UI in ErrorBoundary
-export default function DisplayWithErrorBoundary(props) {
+export default function DisplayWithErrorBoundary(props: RouteComponentProps< {
+	id: string
+}> ) {
 	return (
 		// Details will get all the props as react will spread the props object and pass them as props to the component
 		<ErrorBoundary>
