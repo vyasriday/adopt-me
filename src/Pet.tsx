@@ -6,7 +6,7 @@ interface IProps  {
 	animal: string,
 	media: Photo[],
 	location: string,
-	id: string,
+	id: number,
 	breed: string
 			
 }

@@ -2,8 +2,8 @@ import React, { StrictMode, useState, lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import SearchParams from './SearchParams';
 import { Router } from '@reach/router';
-import ErrorBoundary from './ErrorBoundary.ts';
-import ThemeContext from './ThemeContext.ts';
+import ErrorBoundary from './ErrorBoundary';
+import ThemeContext from './ThemeContext';
 const Details = lazy(() => import('./Details'));
 
 // import NavBar from './Navbar';

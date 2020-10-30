@@ -1,4 +1,4 @@
-import React, { useState, FunctionComponent } from 'react';
+import React, { useState, FunctionComponent, SetStateAction } from 'react';
 
 const useDropdown = (label:string, defaultState: string, options: string[]) => {
 	const [state, setState] = useState(defaultState);
@@ -22,7 +22,7 @@ const useDropdown = (label:string, defaultState: string, options: string[]) => {
 			</select>
 		</label>
 	);
-	return [state, Dropdown, setState];
+	return [state, Dropdown, setState] as [string, FunctionComponent, SetStateAction<string>];
 };
 
 export default useDropdown;
